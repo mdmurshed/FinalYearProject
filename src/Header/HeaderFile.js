@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+=======
+import { makeStyles,useTheme } from '@material-ui/core/styles';
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -10,15 +14,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import { withRouter } from 'react-router-dom';
+<<<<<<< HEAD
 import { Button, Grid, ListItem, useMediaQuery } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
+=======
+import { Button, ListItem, useMediaQuery } from '@material-ui/core';
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow:1,
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
+<<<<<<< HEAD
         [theme.breakpoints.down('sm')]: {
             fontSize: '30px',
             inlineSize: 'max-content',
@@ -53,6 +65,20 @@ const useStyles = makeStyles((theme) => ({
     },
     
 
+=======
+        [theme.breakpoints.down('xs')]:{
+            flexGrow:1
+        }
+    },
+    headerOptions:{
+        display: 'flex',
+
+    },
+    appbar:{
+        display: 'flex',
+        justifyContent: 'space-between', 
+    }
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
 }));
 
 const HeaderFile = props => {
@@ -61,7 +87,11 @@ const HeaderFile = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const theme = useTheme();
+<<<<<<< HEAD
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+=======
+    const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
     // console.log(open);
 
     const handleMenu = (event) => {
@@ -74,6 +104,7 @@ const HeaderFile = props => {
     };
 
     return (
+<<<<<<< HEAD
         <Grid className={classes.root}>
             <AppBar position="static" >
                 <Toolbar className={classes.appbar}>
@@ -87,6 +118,21 @@ const HeaderFile = props => {
                             isMobile ? (
                                 <Grid item>
                                     <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={handleMenu}>
+=======
+        <div className={classes.root}>
+            <AppBar position="static" >
+                <Toolbar className={classes.appbar}>
+                    <div>
+                    <Typography variant="h6" className={classes.title}>
+                        <FastfoodIcon />  Food Order
+                  </Typography>
+                    </div>
+                    <div>
+                        {
+                            isMobile ? (
+                                <div>
+                                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleMenu}>
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
                                         <MenuIcon />
                                     </IconButton>
                                     <Menu
@@ -106,6 +152,7 @@ const HeaderFile = props => {
                                     >
                                         {
                                             MenuListdata.map((items, index) => {
+<<<<<<< HEAD
                                                 return <MenuItem className={classes.menuNames} key={index} onClick={() => handleClose(items.url)}>{items.item}</MenuItem>
                                             })
                                         }
@@ -122,6 +169,25 @@ const HeaderFile = props => {
                             )
                         }
                     </Grid>
+=======
+                                                return <MenuItem key={index} onClick={() => handleClose(items.url)}>{items.item}</MenuItem>
+                                            })
+                                        }
+                                    </Menu>
+                                </div>
+                            ) : (
+                                <div className= {classes.headerOptions}>
+                                     {
+                                            MenuListdata.map((items, index) => {
+                                                return <ListItem ><Button variant="contained" key={index} onClick={() => handleClose(items.url)}>{items.item}</Button></ListItem>
+                                            })
+                                        }
+                                </div>
+                            )
+                        }
+
+                    </div>
+>>>>>>> 9a02bd72c3dd44dcb61b3f0ac77dfe2a1e0e8f77
                 </Toolbar>
             </AppBar>
         </Grid>
