@@ -1,94 +1,131 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+import MenuListdata from './MenuListData';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
-
+import { withRouter } from 'react-router-dom';
+import { Button, Grid, ListItem, useMediaQuery } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        width: '100%',
     },
     menuButton: {
         marginRight: theme.spacing(2),
     },
     title: {
-        flexGrow: 1,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '30px',
+            inlineSize: 'max-content',
+        },
+        color: 'black',
+        fontSize: '30px',
+        inlineSize: 'max-content',
+        padding: '8px 0px 0px 0px',
     },
+    headerOptions: {
+        display: 'flex',
+        paddingRight:'0px'
+
+    },
+    appbar: {
+        backgroundColor: '#D5D6C9',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    manuNames: {
+        inlineSize: 'max-content',
+        paddingRight:'0px',
+    },
+    iconCss: {
+        display:'flex',
+        color:'red',
+        padding: '20px 100px'
+    },
+    manuBars: {
+        padding: '0px 100px 0px 0px'
+    },
+    
+
 }));
 
-export default function HeaderFile() {
+const HeaderFile = props => {
+    const { history } = props;
     const classes = useStyles();
-    const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    console.log(open);
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-    };
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    // console.log(open);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = (url) => {
+    const handleClose = (PageUrl) => {
+        history.push(PageUrl);
         setAnchorEl(null);
     };
 
     return (
-        <div className={classes.root}>
-            <FormGroup>
-                <FormControlLabel
-                    control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
-                    label={auth ? 'Logout' : 'Login'}
-                />
-            </FormGroup>
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                            <FastfoodIcon />  Food Order
-                  </Typography>
-                    {auth && (
-                        <div>
-                            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={handleMenu}>
-                                <MenuIcon />
-                            </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>Home</MenuItem>
-                                <MenuItem onClick={handleClose}>Home</MenuItem>
-                                <MenuItem onClick={handleClose}>Home</MenuItem>
-                                <MenuItem onClick={handleClose}>Home</MenuItem>
-                                {/* <MenuItem onClick={handleClose('/')}>Home</MenuItem>
-                <MenuItem onClick={handleClose('/OnlineOrder')}>Online Order</MenuItem>
-                <MenuItem onClick={handleClose('/Gellary')}>Gellary</MenuItem>
-                <MenuItem onClick={handleClose('/Contact')}>Contact</MenuItem>
-                <MenuItem onClick={handleClose('/Login')}>LogIn</MenuItem> */}
-                            </Menu>
-                        </div>
-                    )}
+        <Grid className={classes.root}>
+            <AppBar position="static" >
+                <Toolbar className={classes.appbar}>
+                    <Grid item className={classes.iconCss}>
+                        <FastfoodIcon style={{ fontSize: '50px',padding:'0px 10px 0px 0px' }} /> 
+                        <Typography variant="h6" className={classes.title} >Food Order
+                        </Typography>
+                    </Grid>
+                    <Grid item className={classes.manuBars}>
+                        {
+                            isMobile ? (
+                                <Grid item>
+                                    <IconButton edge="start" className={classes.menuButton} aria-label="menu" onClick={handleMenu}>
+                                        <MenuIcon />
+                                    </IconButton>
+                                    <Menu
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={open}
+                                        onClose={() => { setAnchorEl(null); }}
+                                    >
+                                        {
+                                            MenuListdata.map((items, index) => {
+                                                return <MenuItem className={classes.menuNames} key={index} onClick={() => handleClose(items.url)}>{items.item}</MenuItem>
+                                            })
+                                        }
+                                    </Menu>
+                                </Grid>
+                            ) : (
+                                <Grid item className={classes.headerOptions}>
+                                    {
+                                        MenuListdata.map((items, index) => {
+                                            return <ListItem key={index}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose(items.url)}>{items.item}</Button></ListItem>
+                                        })
+                                    }
+                                </Grid>
+                            )
+                        }
+                    </Grid>
                 </Toolbar>
             </AppBar>
-        </div>
+        </Grid>
     );
 }
+
+export default withRouter(HeaderFile);
