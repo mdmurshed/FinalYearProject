@@ -1,5 +1,6 @@
 import { Grid, TextField, makeStyles, Button, Link } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 
 
 const useStyles = makeStyles(() => ({
@@ -20,11 +21,19 @@ const useStyles = makeStyles(() => ({
 
 function LogIn() {
     const classes = useStyles();
-    const [Data,setData] = useState([])
-    const [Email,setEmail] = useState('');
-    const [Password,setPassword] = useState('');
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const [Auth,setAuth] = useState("wrongPassword")
     const submitLogin= ()=>{
-        setData([Email,Password]);
+        const data = {
+            email:email,
+            password:password
+        }
+        axios.get(`http://localhost:3000/Login/${email}`)
+        .then(res=>{
+            console.log(res.data[0]);
+            setAuth(res.data[0])
+        });
     }
     // useEffect(()=>{
     //     console.log(Data);
@@ -36,9 +45,12 @@ function LogIn() {
                 <Grid item className={classes.login} >
                     Login
                 </Grid>
+                {
+                    Auth=='rightPassword' ? (<h1>loged in</h1>) : (<h1>Try again</h1>)
+                }
                 <Grid item className={classes.genaralSpacing}>
                     Sign in to your account and start ordering from our delicious menu.
-                    Don't have any account? <Link href='https://google.com'>Register here</Link>
+                    Don't have any account? <Link href='http://localhost:3000/registration'>Register here</Link>
                 </Grid>
 
                 <Grid item className={classes.genaralSpacing}>
@@ -52,6 +64,7 @@ function LogIn() {
                         Login
                     </Button>
                 </Grid>
+
             </div>
         </div>
     )
