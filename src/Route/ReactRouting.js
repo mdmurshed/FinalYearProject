@@ -8,14 +8,11 @@ import LogIn from '../Body/LogIn/LogIn'
 import Registration from '../Body/LogIn/Registration'
 
 export default class ReactRouting extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return (
                 <Switch>
                     <Route path="/OnlineOrder"><OnlineOrder {...this.props.children}></OnlineOrder></Route>
-                    <Route path="/Gellary"><Gallery {...this.props.children}></Gallery></Route>
+                    <Route path="/Gallery"><Gallery {...this.props.children}></Gallery></Route>
                     <Route path="/Contact"><Contact {...this.props.children}></Contact></Route>
                     <Route path="/Registration"><Registration {...this.props.children}></Registration></Route>
                     <Route path="/Login"><LogIn {...this.props.children}></LogIn></Route>

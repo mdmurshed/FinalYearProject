@@ -8,15 +8,15 @@ export default [
         item:'Online Order'
     },
     {
-        url:'/Gellary',
-        item:'Gellary'
+        url:'/Gallery',
+        item:'Gallery'
     },
     {
         url:'/Contact',
         item:'Contact'
     },
-    {
-        url:'/Login',
-        item:'Login'
-    }
+    // {
+    //     url:'/Login',
+    //     item:'Login'
+    // }
 ]

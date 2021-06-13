@@ -10,7 +10,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import { withRouter } from 'react-router-dom';
-import { Button, Grid, ListItem, useMediaQuery } from '@material-ui/core';
+import {  Button, Grid, ListItem, useMediaQuery } from '@material-ui/core';
+import {connect} from 'react-redux'
+import {logout} from '../Redux'
+import axios from 'axios'
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
@@ -55,6 +58,8 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
+
+
 const HeaderFile = props => {
     const { history } = props;
     const classes = useStyles();
@@ -72,6 +77,19 @@ const HeaderFile = props => {
         history.push(PageUrl);
         setAnchorEl(null);
     };
+
+
+    const logout = () => {
+        const token  = 'bearer ' + document.cookie.split("=")[1];
+        axios.get('http://localhost:5000/login/logout', {
+            headers:{ 'Authorization' : token}
+        }, { withCredentials: true })
+            .then(res => {
+                console.log(res.data.massage)
+            })
+        props.logout()
+    }
+
 
     return (
         <Grid className={classes.root}>
@@ -109,6 +127,7 @@ const HeaderFile = props => {
                                                 return <MenuItem className={classes.menuNames} key={index} onClick={() => handleClose(items.url)}>{items.item}</MenuItem>
                                             })
                                         }
+                                        
                                     </Menu>
                                 </Grid>
                             ) : (
@@ -118,6 +137,9 @@ const HeaderFile = props => {
                                             return <ListItem key={index}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose(items.url)}>{items.item}</Button></ListItem>
                                         })
                                     }
+
+                                    <ListItem key={11} onClick={() => logout()}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>{props.log?"Sign Out":"Sign In"}</Button></ListItem>
+                                    {/* <ListItem key={12}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>Log Out</Button></ListItem> */}
                                 </Grid>
                             )
                         }
@@ -128,4 +150,18 @@ const HeaderFile = props => {
     );
 }
 
-export default withRouter(HeaderFile);
+const mapStateToProps = state => {
+    return {
+        log:state.log.chack
+    }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+    return {
+        logout:()=>{
+            dispatch(logout())
+        }
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(HeaderFile))
