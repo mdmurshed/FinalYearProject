@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
         padding: '20px 100px'
     },
     manuBars: {
-        padding: '0px 100px 0px 0px'
+        padding: '0px 35px 0px 0px'
     },
     
 
@@ -134,11 +134,11 @@ const HeaderFile = props => {
                                 <Grid item className={classes.headerOptions}>
                                     {
                                         MenuListdata.map((items, index) => {
-                                            return <ListItem key={index}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose(items.url)}>{items.item}</Button></ListItem>
+                                            return <ListItem key={index} style={{paddingLeft:'0px'}}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose(items.url)}>{items.item}</Button></ListItem>
                                         })
                                     }
 
-                                    <ListItem key={11} onClick={() => logout()}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>{props.log?"Sign Out":"Sign In"}</Button></ListItem>
+                                    <ListItem  style={{paddingLeft:'0px'}} key={11} onClick={() => logout()}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>{props.log?"Sign Out":"Sign In"}</Button></ListItem>
                                     {/* <ListItem key={12}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>Log Out</Button></ListItem> */}
                                 </Grid>
                             )

@@ -1,12 +1,12 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
-    root:{
-        
-        
+    root: {
+
+
     },
-    centerADD:{
+    centerADD: {
         textAlign: 'center'
     }
 
@@ -17,6 +17,17 @@ function Catagory() {
         <div className={classes.root}>
             <div className={classes.centerADD}>
                 <b>Catagory</b>
+            </div>
+            <div style={{paddingLeft:"100px"}}>
+                <ul>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                    <li>Catagory 1</li>
+                </ul>
             </div>
         </div>
     )

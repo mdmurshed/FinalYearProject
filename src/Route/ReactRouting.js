@@ -6,7 +6,7 @@ import Gallery from '../Body/Gallery/Gallery'
 import Contact from '../Body/Contact/Contact'
 import LogIn from '../Body/LogIn/LogIn'
 import Registration from '../Body/LogIn/Registration'
-
+import Reservation from '../Body/Reservation/Reservation'
 export default class ReactRouting extends Component {
     render() {
         return (
@@ -15,6 +15,7 @@ export default class ReactRouting extends Component {
                     <Route path="/Gallery"><Gallery {...this.props.children}></Gallery></Route>
                     <Route path="/Contact"><Contact {...this.props.children}></Contact></Route>
                     <Route path="/Registration"><Registration {...this.props.children}></Registration></Route>
+                    <Route path="/Reservation"><Reservation {...this.props.children}></Reservation></Route>
                     <Route path="/Login"><LogIn {...this.props.children}></LogIn></Route>
                     <Route path="/"><Home {...this.props.children}></Home></Route>
                 </Switch>

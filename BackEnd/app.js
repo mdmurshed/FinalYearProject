@@ -41,7 +41,7 @@ app.use(additionalConfig.postDisable)
 app.use('/login',require('./Router/login'))
 app.use('/Registration',require('./Router/registration'))
 app.use('/gallery',require('./Router/gallery'))
-
+app.use('/admin',require('./Router/Admin/admin'))
 
 //  Error handeling
 app.use(additionalConfig.createMidError)

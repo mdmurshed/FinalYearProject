@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken')
 router.get('/logout',(req,res)=>{ 
     res.status(201)
     .clearCookie('token')
-    .send("logedout")
+    .send("loged_out")
 })
 
 router.get('/users', auth ,(req, res) => {

@@ -12,9 +12,13 @@ export default [
         item:'Gallery'
     },
     {
+        url:'/Reservation',
+        item:'Reservation'
+    },
+    {
         url:'/Contact',
         item:'Contact'
-    },
+    }
     // {
     //     url:'/Login',
     //     item:'Login'

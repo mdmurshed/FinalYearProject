@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
     root:{
-        border: '1px solid'
+        
         
     },
     centerADD:{
