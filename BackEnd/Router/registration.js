@@ -39,7 +39,7 @@ router.route('/').post(async (req, res) => {
             newUser.save()
                 .then(() => res.status(200).json({massage:'User added!'}))
                 .catch(
-                    err => res.status(400).json({
+                    err => res.status(202).json({
                         error : err
                     })
                 )
@@ -48,7 +48,7 @@ router.route('/').post(async (req, res) => {
 
     })
     .catch(err=>{
-        res.status(400).json({
+        res.status(202).json({
             error: err
         })
     })

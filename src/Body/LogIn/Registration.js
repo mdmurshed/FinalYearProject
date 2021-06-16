@@ -1,5 +1,5 @@
 import { Grid, TextField, makeStyles, Button, Link,FormControl,Input,InputLabel,FormHelperText, Hidden } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import axios from 'axios'
 
 const useStyles = makeStyles(() => ({
@@ -44,13 +44,13 @@ function Registration() {
             email: Email,
             password: Password
         }
-        // console.log(Data)
-        // axios.post('http://localhost:5000/Registration',Data)
-        // .then(res=>{
-        //     console.log(res)
-        // }).catch(err=>{
-        //     console.log(err)
-        // })
+        console.log(Data)
+        axios.post('http://localhost:5000/Registration',Data)
+        .then(res=>{
+            console.log(res)
+        }).catch(err=>{
+            console.log(err)
+        })
         setfirstName("");
         setlastName("");
         setNumber("")

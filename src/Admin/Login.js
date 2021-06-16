@@ -1,9 +1,10 @@
-import { Grid, TextField, makeStyles, Button, Link, FormGroup } from '@material-ui/core'
+import { Grid, TextField, makeStyles, Button } from '@material-ui/core'
 import React, { useState } from 'react'
 import {connect} from 'react-redux'
-import {login,logout} from '../../Redux'
+import {login,logout} from '../Redux'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
+
 axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles(() => ({
@@ -23,52 +24,41 @@ const useStyles = makeStyles(() => ({
 
 }))
 
+
+  
 var value = false
 function LogIn(props) {
-
+    const history = useHistory();
+    const [ok,setOk] = useState(false)
+    const handleRoute = () =>{ 
+        history.push("/admin");
+      }
     const classes = useStyles();
-    const [ok, setOk] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [Auth, setAuth] = useState(true)
     const submitLogin = () => {
         const data = {
             email: email,
             password: password
         }
-        axios.post('http://localhost:5000/Login/', data, { withCredentials: true })
+        axios.post('http://localhost:5000/admin/login', data, { withCredentials: true })
             .then(res => {
-                console.log(res.data.massage)
+                console.log(res.data)
+                if(res.data.message === "wrong password"){
+                    setOk(true)
+                }else{
+                    console.log(res.data.massage)
+                    handleRoute()
+                }
                 // console.log(document.cookie.valueOf('token'))
-            });
+            })
+            .catch(err=>{
+                console.log(err)
+            })
         // console.log(cookie.token)
            setEmail('');
            setPassword('');
-           handleRoute()
            props.login(email)
-    }
-    // const users = () => {
-    //     const token  = 'bearer ' + document.cookie.split("=")[1];
-    //     axios.get('http://localhost:5000/login/users', {
-    //         headers:{ 'Authorization' : token}
-    //     }, { withCredentials: true })
-    //         .then(res => {
-    //             console.log(res.data.info)
-    //         })
-    // }
-    const history = useHistory();
-    const handleRoute = () =>{ 
-        history.push("/onlineOrder");
-      }
-    const logout = () => {
-        const token  = 'bearer ' + document.cookie.split("=")[1];
-        axios.get('http://localhost:5000/login/logout', {
-            headers:{ 'Authorization' : token}
-        }, { withCredentials: true })
-            .then(res => {
-                console.log(res.data.massage)
-            })
-        props.logout()
     }
     
 
@@ -76,13 +66,11 @@ function LogIn(props) {
         <div style={{ padding: '5px', display: 'flex', justifyContent: "center" }}>
             <div className={classes.root}>
                 <Grid item className={classes.login} >
-                    Login
+                    Admin Login
                 </Grid>
-                <Grid item className={classes.genaralSpacing}>
-                    Sign in to your account and start ordering from our delicious menu.
-                    Don't have any account? <Link href='http://localhost:3000/registration'>Register here</Link>
-                </Grid>
-
+                {
+                    ok && <h2 style={{color:'red'}}>Wrong password , Try again.</h2>
+                }
                 <Grid item className={classes.genaralSpacing}>
                     <TextField id="id1" label="Email or Phone Number" style={{ inlineSize: '300px' }} value={email} onChange={(event) => setEmail(event.target.value)} />
                 </Grid>
@@ -92,9 +80,6 @@ function LogIn(props) {
                 <Grid item className={classes.genaralSpacing} style={{ padding: '25px 0px 0px 0px' }}>
                     <Button variant="contained" color="primary" style={{margin:'0px 15px 5px 0px'}} onClick={() => submitLogin()}>
                         Login
-                    </Button>
-                    <Button variant="contained" color="primary" style={{margin:'0px 15px 5px 0px'}} onClick={() => logout()}>
-                        Logout
                     </Button>
                 </Grid>
                 

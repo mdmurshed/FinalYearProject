@@ -39,9 +39,10 @@ app.use(additionalConfig.postDisable)
 
 // Routing section
 app.use('/login',require('./Router/login'))
-app.use('/Registration',require('./Router/registration'))
+app.use('/registration',require('./Router/registration'))
 app.use('/gallery',require('./Router/gallery'))
 app.use('/admin',require('./Router/Admin/admin'))
+app.use('/admin/login',require('./Router/Admin/adminLogin'))
 
 //  Error handeling
 app.use(additionalConfig.createMidError)

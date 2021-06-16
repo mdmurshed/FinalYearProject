@@ -1,7 +1,8 @@
 const router = require('express').Router();
 let Category = require('../../models/ItemCategory')
 let MenuItems = require('../../models/menuItems')
-router.get('/', (req, res) => {
+const auth = require('../../auth/auth')
+router.get('/', auth ,(req, res) => {
     MenuItems.find()
         .exec()
         .then(data => {
@@ -9,6 +10,9 @@ router.get('/', (req, res) => {
                 status: 'Admin on working',
                 data: data
             })
+        })
+        .catch((error)=>{
+            res.status(202).json({ err : error})
         })
 })
 router.post('/menuItemAdd', (req, res) => {
@@ -68,7 +72,7 @@ router.post('/menuItemAdd', (req, res) => {
 
 // search by item or category 
 // not done yet
-router.get('/itemSearch',(req,res)=>{
+router.get('/itemSearch',auth,(req,res)=>{
     const searchString  = req.body.searchItem
     console.log(typeof(searchString))
     console.log(searchString)
