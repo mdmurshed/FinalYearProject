@@ -9,11 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditTable from './Notworking/EditTable';
+import UpdateItem from './UpdateItem';
 const token = 'bearer ' + document.cookie.split("=")[1];
 function MenuItemList() {
     const [items, setItems] = useState([])
-    const [update,setOk] = useState(false)
-    
+    const [ok, setOk] = useState(0)
+    const [update, setUpdate] = useState(false)
+    const [id, setId] = useState()
     useEffect(() => {
         axios.get('http://localhost:5000/admin', {
             headers: { 'Authorization': token }
@@ -23,60 +26,72 @@ function MenuItemList() {
                 console.log(items)
                 // return <Items data = res.data.data ></Items>
             })
-    },[update])
-    function deleteItem(id){
+    }, [ok])
+    function deleteItem(id) {
         console.log(id)
-        axios.delete('http://localhost:5000/admin/itemSearch/'+id, {
-                headers: { 'Authorization': token }
-            }, { withCredentials: true })
-                .then(res => {
-                    console.log("Item deleted")
-                    // return <Items data = res.data.data ></Items>
-                })
-        setOk(true)
-        
+        axios.delete('http://localhost:5000/admin/itemSearch/' + id, {
+            headers: { 'Authorization': token }
+        }, { withCredentials: true })
+            .then(res => {
+                console.log("Item deleted")
+                // return <Items data = res.data.data ></Items>
+            })
+        setOk(ok+1)
+
     }
-    
+
     // const chacking = () => {
     //     console.log(items)
     //     setCount(count + 1)
     // }    
-    const startEditing = (index)=>{
-        console.log(index)
+    const startEditing = (id) => {
+        console.log(id)
+        setUpdate(true)
+        setId(id)
     }
-    return <div>
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow style={{backgroundColor:"#DED6D6"}}>
-                        <TableCell><b>Items</b></TableCell>
-                        <TableCell align="left"><b>Category</b></TableCell>
-                        <TableCell align="left"><b>Discription</b></TableCell>
-                        <TableCell align="left"><b>Price</b></TableCell>
-                        <TableCell align="left"><b>Edit</b></TableCell>
-                        <TableCell align="left"><b>Delete</b></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {
-                        items.map((row,index) => (
-                            <TableRow key={row._id}>
-                                <TableCell component="th" scope="row">
-                                    {row.item}
-                                </TableCell>
-                                <TableCell align="Left">{row.category}</TableCell>
-                                <TableCell align="Left">{row.discription}</TableCell>
-                                <TableCell align="Left">{row.price}</TableCell>
-                                <TableCell align="Left"><button onClick={()=>startEditing(index)}><EditIcon></EditIcon></button></TableCell>
-                                <TableCell align="Left"><button onClick={()=>deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
+    // const cencleEdit = () => {
+    //     setUpdate(false)
+    // }
+
+    const callbackFunction = (chack) => {
+        setUpdate(chack)
+        setOk(ok+1)
+    }
+
+    return < div >
+        {
+            update ? <UpdateItem id={id} parentCallBack = {callbackFunction}></UpdateItem> :
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow style={{ backgroundColor: "#DED6D6" }}>
+                                <TableCell><b>Items</b></TableCell>
+                                <TableCell align="left"><b>Category</b></TableCell>
+                                <TableCell align="left"><b>Discription</b></TableCell>
+                                <TableCell align="left"><b>Price</b></TableCell>
+                                <TableCell align="left"><b>Edit</b></TableCell>
+                                <TableCell align="left"><b>Delete</b></TableCell>
                             </TableRow>
-                        ))
-                    }
-                </TableBody>
-            </Table>
-        </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {
+                                items.map((row, index) => (
+                                    <TableRow key={row._id}>
+                                        <TableCell component="th" scope="row">
+                                            {row.item}
+                                        </TableCell>
+                                        <TableCell align="Left">{row.category}</TableCell>
+                                        <TableCell align="Left">{row.discription}</TableCell>
+                                        <TableCell align="Left">{row.price}</TableCell>
+                                        <TableCell align="Left"><button onClick={(e) => startEditing(row._id)}><EditIcon></EditIcon></button></TableCell>
+                                        <TableCell align="Left"><button onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+        }
     </div>
 }
-
-
 export default MenuItemList

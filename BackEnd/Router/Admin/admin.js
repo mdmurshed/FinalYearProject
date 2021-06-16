@@ -15,6 +15,20 @@ router.get('/', auth ,(req, res) => {
             res.status(202).json({ err : error})
         })
 })
+router.get('/oneItem/:id', auth ,(req, res) => {
+    MenuItems.find({_id:req.params.id})
+        .exec()
+        .then(data => {
+            res.status(200).json({
+                status: 'Admin on working',
+                data: data
+            })
+        })
+        .catch((error)=>{
+            res.status(202).json({ err : error})
+        })
+})
+
 router.post('/menuItemAdd', (req, res) => {
     Category.find({ category: req.body.category })
         .exec()

@@ -73,7 +73,7 @@ function LogIn(props) {
     
 
     return (
-        <div style={{ padding: '5px', display: 'flex', justifyContent: "center" }}>
+        <div style={{ padding: '5px', display: 'flex', justifyContent: "center",margin:'130px'}}>
             <div className={classes.root}>
                 <Grid item className={classes.login} >
                     Login

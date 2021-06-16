@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import {Tabs,Tab,AppBar} from '@material-ui/core'
 import MenuAdd from './MenuAdd'
 import MenuItems from './MenuItems'
+import UpdateItem from './UpdateItem'
+import OrderItems from './OrderItems'
 
 function TabPanel() {
     const [value,setValue] = useState(0)
@@ -15,6 +17,7 @@ function TabPanel() {
                 <Tabs value={value} onChange={handleTab} >
                     <Tab style={{fontWeight:"bold"}} label="Menu Items"/>
                     <Tab style={{fontWeight:"bold"}} label="Add Menu"/>
+                    <Tab style={{fontWeight:"bold"}} label="Order Items"/>
                 </Tabs>
             </AppBar>
             <TabPanelPage value = {value} index={0}>
@@ -23,7 +26,9 @@ function TabPanel() {
             <TabPanelPage value = {value} index={1}>
                 <MenuAdd></MenuAdd>
             </TabPanelPage>
-            {/* <TabPanelPage value = {value} index={2}>item 3</TabPanelPage> */}
+            <TabPanelPage value = {value} index={2}>
+                <OrderItems></OrderItems>
+            </TabPanelPage>
         </div>
     )
 }

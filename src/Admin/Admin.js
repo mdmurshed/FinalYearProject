@@ -1,6 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import PopUp from './PopUp'
 import TabPanel from './TabPanel'
 function Admin(props) {
     console.log("admin status : " + props.log)
