@@ -7,7 +7,7 @@ import { Container,Button } from '@material-ui/core';
 
     const useStyles = makeStyles ((theme)=>({
         headdingPaper:{
-           marginLeft:'5%',
+           marginLeft:'7%',
            width:"86%",
            height:'120px',
            textAlign:"center",
@@ -15,8 +15,7 @@ import { Container,Button } from '@material-ui/core';
            
         },
         root:{
-           flexGrow:1,
-           padding :"20px"
+            padding :"20px"
         },
         paper:{
             padding :theme.spacing(2),
@@ -24,7 +23,9 @@ import { Container,Button } from '@material-ui/core';
             color: theme.palette.text.primary
         },
         txtfild:{
+            padding:"7px",
             '& > *': {
+               
                 margin: theme.spacing(1),
                 width: '100%',
               },
@@ -35,12 +36,13 @@ import { Container,Button } from '@material-ui/core';
     
 
 
-function Reservation() {
+function Reservation(props) {
     const classess =useStyles();
 
     function OpeningHours(){
         return(
             <>
+            
             <Typography variant='h4'>Opening Hours</Typography>
             <Grid className={classess.root} container  direction="column">
                 <Grid item container  xs={12}>
@@ -110,7 +112,7 @@ function Reservation() {
                         <Typography> 12:00 PM - 2:00 PM  / 5:00 PM - 11:00 PM</Typography>
                     </Grid>
                 </Grid>
-        </Grid>
+            </Grid>
         </>
         )
     }
@@ -119,7 +121,7 @@ function Reservation() {
         return(
             <>
             <Typography variant='h4'>Book a Table Online</Typography>
-            <form  className={classess.txtfild} noValidate autoComplete="off">
+            <form  className={classess.txtfild} noValidate autoComplete="off" >
             <TextField id="outlined-basic" label="Number of Guests" variant="outlined" />
             <TextField id="outlined-basic" label="Date of Booking" variant="outlined" />
             <TextField id="outlined-basic" label="Select Time" variant="outlined" />
@@ -137,11 +139,18 @@ function Reservation() {
     return (
         <>
         
-        <Grid style={{paddingTop:"20px"}} item xs={12}><Paper className ={classess.headdingPaper}><Typography variant='h2' > Reservation</Typography></Paper> </Grid>
+        <Grid style={{paddingTop:"20px"}} item xs={12}>
+            {props.falsePaper? 
+            <Typography > </Typography>
+            :
+           <Paper className ={classess.headdingPaper}><Typography variant='h2' >Reservation</Typography></Paper>
+          
+            } 
+        </Grid>
         <Container>
                
         <div className={classess.root}>
-            <Grid container  justify="space-between" alignItems="center" spacing={2}>
+            <Grid container  justify="space-between"  spacing={2}>
                 
                 <Grid item xs={12} md={6}>
                     <Paper className ={classess.paper}> <OpeningHours/> </Paper>

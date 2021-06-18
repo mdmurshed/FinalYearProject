@@ -29,7 +29,7 @@ router.get('/oneItem/:id', auth ,(req, res) => {
         })
 })
 
-router.post('/menuItemAdd', (req, res) => {
+router.post('/menuItemAdd',auth, (req, res) => {
     Category.find({ category: req.body.category })
         .exec()
         .then(data => {
@@ -86,7 +86,7 @@ router.post('/menuItemAdd', (req, res) => {
 
 // search by item or category 
 // not done yet
-router.get('/itemSearch',auth,(req,res)=>{
+router.get('/itemSearch',(req,res)=>{
     const searchString  = req.body.searchItem
     console.log(typeof(searchString))
     console.log(searchString)
@@ -104,16 +104,43 @@ router.get('/itemSearch',auth,(req,res)=>{
 
 router.patch("/itemSearch/:id",(req,res)=>{
     const id = req.params.id
-    MenuItems.update({_id:id},{
-        $set:req.body
-    }).exec()
-    .then(result=>{
-        res.status(200).json(result)
+    Category.find({category:req.body.category})
+    .exec()
+    .then(chacking=>{
+        if(chacking.length>=1){
+            MenuItems.update({_id:id},{
+                $set:req.body
+            }).exec()
+            .then(result=>{
+                res.status(200).json(result)
+            })
+            .catch(err=>{
+                console.log(err)
+                res.status(404).json({error:err})
+            })
+        }
+        else{
+            const newCategory = new Category({
+                category: req.body.category
+            })
+            // console.log('Category')
+            newCategory.save()
+            .then(() => {
+                MenuItems.update({_id:id},{
+                    $set:req.body
+                }).exec()
+                .then(result=>{
+                    res.status(200).json(result)
+                })
+                .catch(err=>{
+                    console.log(err)
+                    res.status(404).json({error:err})
+                })
+            })
+        }
     })
-    .catch(err=>{
-        console.log(err)
-        res.status(404).json({error:err})
-    })
+
+   
 })
 
 // delete is working

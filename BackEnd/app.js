@@ -43,6 +43,7 @@ app.use('/registration',require('./Router/registration'))
 app.use('/gallery',require('./Router/gallery'))
 app.use('/admin',require('./Router/Admin/admin'))
 app.use('/admin/login',require('./Router/Admin/adminLogin'))
+app.use('/onlineOrder',require('./Router/OnlineOrder/OnlineOrder'))
 
 //  Error handeling
 app.use(additionalConfig.createMidError)

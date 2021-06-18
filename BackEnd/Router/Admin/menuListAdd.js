@@ -23,6 +23,7 @@ router.post('/menuItemAdd', (req, res) => {
                 // })
                 const newMenuItem = new MenuItems({
                     category: req.body.category,
+                    categoryId:data._id,
                     item: req.body.item,
                     discription: req.body.discription,
                     price: req.body.price

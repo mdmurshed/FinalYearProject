@@ -58,6 +58,7 @@ import { GridList, GridListTile } from '@material-ui/core'
 import React from 'react'
 import GList from './GalleryData.json'
 import withWidth, { isWidthUp } from '@material-ui/core/withWidth';
+import { Container } from '@material-ui/core';
 
 function Gallery(props) {
 
@@ -82,8 +83,10 @@ function Gallery(props) {
     }
 
     return (
-        <div>
-            <h2>Gallery</h2>
+        <div style={{padding:"20px"}}>
+            <Container>
+            <h1 style={{textAlign:'center',padding:"20px"}}> Photo Gallery</h1>
+            
 
         <GridList spacing={20} cellHeight={400}  cols={getGridListCols()}>
 
@@ -95,7 +98,7 @@ function Gallery(props) {
         ))}
 
         </GridList>
-
+        </Container>
 
         </div>
     )

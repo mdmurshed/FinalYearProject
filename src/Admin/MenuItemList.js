@@ -26,6 +26,7 @@ function MenuItemList() {
                 console.log(items)
                 // return <Items data = res.data.data ></Items>
             })
+            .catch(err => {console.log(err)})
     }, [ok])
     function deleteItem(id) {
         console.log(id)
@@ -36,6 +37,7 @@ function MenuItemList() {
                 console.log("Item deleted")
                 // return <Items data = res.data.data ></Items>
             })
+            .catch(err => console.log(err))
         setOk(ok+1)
 
     }
@@ -48,6 +50,7 @@ function MenuItemList() {
         console.log(id)
         setUpdate(true)
         setId(id)
+        setOk(ok+1)
     }
     // const cencleEdit = () => {
     //     setUpdate(false)
@@ -60,6 +63,7 @@ function MenuItemList() {
 
     return < div >
         {
+            
             update ? <UpdateItem id={id} parentCallBack = {callbackFunction}></UpdateItem> :
                 <TableContainer component={Paper}>
                     <Table>
@@ -75,7 +79,7 @@ function MenuItemList() {
                         </TableHead>
                         <TableBody>
                             {
-                                items.map((row, index) => (
+                                items ? items.map((row) => (
                                     <TableRow key={row._id}>
                                         <TableCell component="th" scope="row">
                                             {row.item}
@@ -86,7 +90,7 @@ function MenuItemList() {
                                         <TableCell align="Left"><button onClick={(e) => startEditing(row._id)}><EditIcon></EditIcon></button></TableCell>
                                         <TableCell align="Left"><button onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
                                     </TableRow>
-                                ))
+                                )) : <div>Loading...</div>
                             }
                         </TableBody>
                     </Table>
