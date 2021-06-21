@@ -101,6 +101,7 @@ function Item(props) {
                                     <Grid item sm={2} style={{justifyContent: "center",display: "flex",alignItems: "center"}}><AddCircleOutlineIcon className={classes.addCard} onClick={()=>cardAdd(item.item,item.price)}></AddCircleOutlineIcon></Grid>
                                 </Grid>
                                 <p>{item.discription}</p>
+                                <hr></hr>
                                 </div> 
                         }) :"...Loading"
                     }
