@@ -1,9 +1,10 @@
 import { ADD_ITEM,REMOVE_ITEM } from './cardType'
 
-export const addCard = (addItm)=>{
+export const addCard = (addItm,price)=>{
     return{
         type:ADD_ITEM,
-        payload:addItm
+        payload:addItm,
+        total:price
     }
 }
 export const removeCard = ()=>{

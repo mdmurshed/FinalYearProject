@@ -74,7 +74,7 @@ function Item(props) {
             listOfItem.push(props.cardItem[i])
         }
         if(ok) listOfItem.push(temp)
-        props.addCard(listOfItem)
+        props.addCard(listOfItem,props.total+price)
         // else  setListOfItem(preList=>[...preList ,temp])
         // console.log("listOfItem: ")
         // console.log(listOfItem)
@@ -114,13 +114,14 @@ const mapStateToProps = state => {
     
     console.log(state.card.cardItem)
     return {
-        cardItem:state.card.cardItem
+        cardItem:state.card.cardItem,
+        total:state.card.total
     }
 }
 const mapDispatchToProps = (dispatch) =>{
     return {
-        addCard:listOfItem=>{
-            dispatch(addCard(listOfItem))
+        addCard:(listOfItem,price)=>{
+            dispatch(addCard(listOfItem,price))
        
         }
     }
