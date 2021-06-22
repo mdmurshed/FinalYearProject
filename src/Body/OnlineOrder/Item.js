@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import {  Grid, makeStyles } from '@material-ui/core'
+import {  Grid, makeStyles,Typography,Container,Paper } from '@material-ui/core'
 import axios from 'axios'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import {connect} from 'react-redux'
 import {addCard} from '../../Redux'
 const useStyles = makeStyles(() => ({
     root: {
-        padding:'10px 30px'
+        padding:'8px',
+        marginBottom:'20px'
 
     },
     centerADD: {
-        textAlign: 'center'
+        textAlign: 'center',
+        padding:20
     },
     hoverAdd:{
         "&:hover": {
-            backgroundColor: '#F2E9E9'
+            backgroundColor: '#F2E9E9',
+            
           }
     },
     addCard:{
         "&:hover": {
             backgroundColor: '#F2E9E9',
             color:'red',
-            fontSize:'30px'
+            
           }
+    },
+    container:{
+        backgroundColor: '#f2f2f2'
+
     }
     
 
@@ -30,6 +37,7 @@ const useStyles = makeStyles(() => ({
 }))
 function Item(props) {
     const [renderOK, setOk] = useState(0)
+    // const [orderList,setOrderList] = useState("")
     const [items, setItem] = useState([])
     // const [listOfItem, setListOfItem] = useState([])
     const listOfItem = []
@@ -62,6 +70,7 @@ function Item(props) {
             numOfItems:1,
             price:price
         }
+        // setOrderList(orderList+item+",")
         // listOfItem[0].numOfItems=4
         // console.log(listOfItem[0].numOfItems)
         // listOfItem[0].price=40
@@ -83,31 +92,37 @@ function Item(props) {
     const classes = useStyles();
     console.log(props.categoryId)
     return (
-        <div className={classes.root}>
+        <Container  className={classes.container}>
             <div className={classes.centerADD}>
                 {
-                     category==" "?<b style={{ fontSize: "35px" }}>All Items</b>:<h1>{category}</h1>
+                     category==" "?<Typography variant='h4'>All Items</Typography>:<Typography variant="h4">{category}</Typography>
                 }
             </div>
             <div>
                 
-                <div>
+                <div className={classes.root} >
                     {
                         items ? items.map((item,index) => {
-                            return <div key = {index} className = {classes.hoverAdd} style={{padding:'10px 20px'}}>
-                                <Grid container>
-                                    <Grid item sm={6}><h3>{item.item}</h3></Grid>
-                                    <Grid item sm={4}><h3>price:{item.price} </h3></Grid>
-                                    <Grid item sm={2} style={{justifyContent: "center",display: "flex",alignItems: "center"}}><AddCircleOutlineIcon className={classes.addCard} onClick={()=>cardAdd(item.item,item.price)}></AddCircleOutlineIcon></Grid>
+                            return <Grid container spacing={2} key = {index} className = {classes.hoverAdd} >
+                               <Paper className={classes.root} key = {index}>
+                                <Grid  item container spacing={1} key={index}>
+                                    <Grid item container sm={6} key={1}>
+                                         <Grid item key={1}>  <Typography variant='h6'>{item.item}</Typography> </Grid> 
+                                         <Grid item key={2}><Typography variant="body1" gutterBottom>{item.discription}</Typography></Grid>  
+                                    </Grid>
+                                    <Grid item sm={3} key={2}><Typography variant='h6'>price:{item.price}</Typography></Grid>
+                                    <Grid item sm={3} key={3} style={{paddingRight:'10px'}}><AddCircleOutlineIcon  className={classes.addCard} onClick={()=>cardAdd(item.item,item.price)}></AddCircleOutlineIcon></Grid>
+                                    {/* <Grid item sm={12}><Typography variant="body1" gutterBottom>{item.discription}</Typography></Grid> */}
                                 </Grid>
-                                <p>{item.discription}</p>
-                                <hr></hr>
-                                </div> 
+                                </Paper>
+                                
+                               
+                                </Grid> 
                         }) :"...Loading"
                     }
                 </div>
             </div>
-        </div>
+        </Container>
     )
 }
 

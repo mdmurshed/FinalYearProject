@@ -44,7 +44,8 @@ app.use('/gallery',require('./Router/gallery'))
 app.use('/admin',require('./Router/Admin/admin'))
 app.use('/admin/login',require('./Router/Admin/adminLogin'))
 app.use('/onlineOrder',require('./Router/OnlineOrder/OnlineOrder'))
-
+app.use('/payment',require('./Router/Admin/payment'))
+app.use('/orderList',require('./Router/Admin/orderList'))
 //  Error handeling
 app.use(additionalConfig.createMidError)
 app.use(additionalConfig.MidErrorShow)

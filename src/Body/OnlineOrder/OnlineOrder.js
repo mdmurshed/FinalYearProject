@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { makeStyles, Grid } from '@material-ui/core'
+import { makeStyles, Grid ,Container, Paper} from '@material-ui/core'
 
 import CardAndPayment from './CardAndPayment'
 import Catagory from './Catagory'
@@ -26,19 +26,19 @@ function OnlineOrder() {
         console.log('parent category :' + category)
     }
     return (
-        <div className={classes.root}>
+        <Container>
             <Grid container spacing={3}>
-                <Grid item xs={3}>
-                    <Catagory id={categoryIdCallBack}></Catagory>
+                <Grid item xs={12} md={2}>
+                 <Paper> <Catagory id={categoryIdCallBack}></Catagory> </Paper> 
                 </Grid>
-                <Grid item xs={6} className = {classes.boxStyle} >
-                    <Item categoryId={categoryId} category={category}></Item>
+                <Grid item xs={12} md={6}  >
+                <Paper> <Item categoryId={categoryId} category={category}></Item> </Paper>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={12} md={4}>
                     <CardAndPayment></CardAndPayment>
                 </Grid>
             </Grid>
-        </div>
+        </Container>
     )
 }
 

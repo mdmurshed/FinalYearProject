@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core'
+import { makeStyles ,Typography,Container } from '@material-ui/core'
 import axios from 'axios'
 
 const useStyles = makeStyles(() => ({
     root: {
-
+        
 
     },
     hoverAdd:{
@@ -13,7 +13,13 @@ const useStyles = makeStyles(() => ({
           }
     },
     centerADD:{
-       textAlign: 'center'
+       textAlign: 'center',
+       padding: 8
+    },  
+    container:{
+        padding:"8px",
+        backgroundColor: '#f2f2f2'
+
     }
 
 }))
@@ -39,27 +45,28 @@ function Catagory(props) {
         props.id(id,category)
     }
     return (
-        <div className={classes.root}>
-            <div className={classes.centerADD}>
-                <b style={{fontSize:"35px"}}>Catagory</b>
-            </div>
-            <div style={{ paddingLeft: "80px" }}>
-                <ul>
+        <Container className={classes.root}>
+           
+                <Typography variant ='h4' align="center"  className={classes.container}>Catagory</Typography> 
+           
+            <div >
+              
                     {
                         items?items.map((item, index) => (
-                            <li style={{ listStyleType: "none" }} key={index}>
-                                <div style={{padding: "10px 30px",fontSize:'26px'}} className = {classes.hoverAdd}
+                            <div key={index}>
+                                <div  className = {classes.hoverAdd}
                                 onClick={() => returnCategoryId(item._id,item.category)}
                                 >
-                                    <b>{item.category}</b>
+                                    <Typography variant ='h6'>{item.category}</Typography>
+                                    <hr></hr>
                                 </div>
-                            </li>
+                            </div>
                         )):"Loading..."
                     }
 
-                </ul>
+                
             </div>
-        </div>
+        </Container>
     )
 }
 

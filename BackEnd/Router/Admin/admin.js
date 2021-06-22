@@ -146,7 +146,16 @@ router.patch("/itemSearch/:id",(req,res)=>{
 // delete is working
 router.delete("/itemSearch/:id",(req,res)=>{
     const id = req.params.id
-   
+    MenuItems.find({_id:id})
+    .exec()
+    .then(chacking=>{
+        if(chacking.length==1){
+            Category.deleteOne({category:chacking[0].category})
+            .then(res=>{
+                console.log('delete category no other category left in the item')
+            })
+        }
+    })
     MenuItems.deleteOne({_id:id})
         .exec()
         .then(()=>{
