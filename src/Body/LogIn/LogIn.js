@@ -1,5 +1,5 @@
 import { Grid, TextField, makeStyles, Button, Link, FormGroup } from '@material-ui/core'
-import React, { useState } from 'react'
+import React, { useState,useEffect} from 'react'
 import {connect} from 'react-redux'
 import {login,logout} from '../../Redux'
 import axios from 'axios'
@@ -38,7 +38,7 @@ function LogIn(props) {
         }
         axios.post('http://localhost:5000/Login/', data, { withCredentials: true })
             .then(res => {
-                console.log(res.data.massage)
+                // console.log(res.data.massage)
                 // console.log(document.cookie.valueOf('token'))
             });
         // console.log(cookie.token)
@@ -70,7 +70,15 @@ function LogIn(props) {
             })
         props.logout()
     }
-    
+    useEffect(() => {
+        axios.get('http://localhost:5000/login/chack', {
+            headers:{ 'Authorization' :  'bearer ' + document.cookie.split("=")[1]}
+        }, { withCredentials: true })
+            .then(res => {
+                console.log("Cookies:")
+                console.log(document.cookie.valueOf('token'))
+            })
+    },[])
 
     return (
         <div style={{ padding: '5px', display: 'flex', justifyContent: "center",margin:'130px'}}>
@@ -107,7 +115,8 @@ const mapStateToProps = state => {
     value = state.log.chack
     console.log(value)
     return {
-        name:state.log.user
+        name:state.log.user,
+        logStatus:state.log.chack
     }
 }
 const mapDispatchToProps = (dispatch) =>{

@@ -9,30 +9,20 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import CheckIcon from '@material-ui/icons/Check';
 import { Button } from '@material-ui/core';
-function OrderItems() {
+function OrderHistory() {
     const token = 'bearer ' + document.cookie.split("=")[1];
     const [orders, setOrders] = useState([])
-    const [ok,setOk] = useState(0)
     useEffect(() => {
-        axios.get('http://localhost:5000/orderList/orderItems', {
+        axios.get('http://localhost:5000/orderList/orderHistoy', {
             headers: { 'Authorization': token }
         }, { withCredentials: true })
             .then(res => {
-                console.log("Status:" ,res.data.status)
+                console.log("orders:" ,res.data.status)
                 setOrders(res.data.data)
                 console.log("orders::" ,orders)
                 // orders.map(order => console.log(order.orders))
             }).catch(err => {console.log(err)})
-    }, [ok])
-    const OrderDone = (id)=>{
-        axios.patch('http://localhost:5000/orderList/orderDone/'+id, {
-            headers: { 'Authorization': token }
-        }, { withCredentials: true })
-            .then(res => {
-               console.log("Order Done")
-            }).catch(err => {console.log(err)})
-        setOk(ok+1)
-    }
+    }, [])
     return (
         <div>
             <TableContainer component={Paper}>
@@ -52,7 +42,7 @@ function OrderItems() {
                                     <TableCell component="th" scope="row" key={1}><b>{order.person}</b></TableCell>
                                     <TableCell key={2}><b>{order.orders}</b></TableCell>
                                     <TableCell key={3}><b>{order.price}</b></TableCell>
-                                    <TableCell key={4}><Button style={{color: 'green'}} onClick={()=>OrderDone(order._id)}><CheckIcon></CheckIcon></Button></TableCell>
+                                    <TableCell key={4}><b>Done</b></TableCell>
                                 </TableRow>
                             )):<div>Loading ...</div>
 
@@ -65,4 +55,4 @@ function OrderItems() {
     )
 }
 
-export default OrderItems
+export default OrderHistory

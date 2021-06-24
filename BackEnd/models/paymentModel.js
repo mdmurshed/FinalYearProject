@@ -8,7 +8,12 @@ const PaymentsSchema  = new Schema({
         required: true,
     },
     orders:{
-        type:String
+        type:String,
+        required: true,
+    },
+    orderStatus:{
+        type:Boolean,
+        required: true,
     },
     price:{
         type:Number,

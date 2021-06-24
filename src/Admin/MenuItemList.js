@@ -70,11 +70,11 @@ function MenuItemList() {
                         <TableHead>
                             <TableRow style={{ backgroundColor: "#DED6D6" }}>
                                 <TableCell><b>Items</b></TableCell>
-                                <TableCell align="left"><b>Category</b></TableCell>
-                                <TableCell align="left"><b>Discription</b></TableCell>
-                                <TableCell align="left"><b>Price</b></TableCell>
-                                <TableCell align="left"><b>Edit</b></TableCell>
-                                <TableCell align="left"><b>Delete</b></TableCell>
+                                <TableCell ><b>Category</b></TableCell>
+                                <TableCell ><b>Discription</b></TableCell>
+                                <TableCell ><b>Price</b></TableCell>
+                                <TableCell ><b>Edit</b></TableCell>
+                                <TableCell ><b>Delete</b></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -84,11 +84,11 @@ function MenuItemList() {
                                         <TableCell component="th" scope="row">
                                             {row.item}
                                         </TableCell>
-                                        <TableCell align="Left">{row.category}</TableCell>
-                                        <TableCell align="Left">{row.discription}</TableCell>
-                                        <TableCell align="Left">{row.price}</TableCell>
-                                        <TableCell align="Left"><button onClick={(e) => startEditing(row._id)}><EditIcon></EditIcon></button></TableCell>
-                                        <TableCell align="Left"><button onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
+                                        <TableCell >{row.category}</TableCell>
+                                        <TableCell >{row.discription}</TableCell>
+                                        <TableCell >{row.price}</TableCell>
+                                        <TableCell ><button onClick={(e) => startEditing(row._id)}><EditIcon></EditIcon></button></TableCell>
+                                        <TableCell ><button onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
                                     </TableRow>
                                 )) : <div>Loading...</div>
                             }

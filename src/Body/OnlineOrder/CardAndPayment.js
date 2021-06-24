@@ -29,8 +29,8 @@ function CardAndPayment(props) {
     const [ok, setOk] = useState(0)
 
     // history item
-    const [historyItems,setHistoryItems] = useState("")
-    const [tempPrice,setTempPrice] = useState(0)
+    const [historyItems, setHistoryItems] = useState("")
+    const [tempPrice, setTempPrice] = useState(0)
     const increaseItem = (index, itemPrice) => {
         console.log("increaseItem totalPrice:", props.total)
         console.log("item:Price", itemPrice)
@@ -53,37 +53,50 @@ function CardAndPayment(props) {
         addCard(props.cardItem, props.total - itemPrice)
         setOk(ok + 1)
     }
+
+    const token = 'bearer ' + document.cookie.split("=")[1];
     useEffect(() => {
         setOrderItem(props.cardItem)
+        console.log("order user : ", props.user)
+        // order history add
+        axios.get('http://localhost:5000/orderList/' + props.user, {
+            headers: { 'Authorization': token }
+        }, { withCredentials: true })
+            .then(res => {
+                // console.log(document.cookie.split("=")[1])
+                console.log(res.data.data)
+                // setHistoryItems(res.data.data[0].orders)
+                // setTempPrice(res.data.data[0].price)
+            })
         // console.log("useEffect : order item: ",orderItem)
     }, [ok, increaseItem, decreaseItem])
-    const orderDone=()=>{
+    const orderDone = () => {
         var orders = ""
-        for(var i=0;i<orderItem.length;i++){
+        for (var i = 0; i < orderItem.length; i++) {
             console.log(orderItem[i].item)
-            orders+=orderItem[i].item+"("+ orderItem[i].numOfItems + (i!=orderItem.length-1?"),":")")
+            orders += orderItem[i].item + "(" + orderItem[i].numOfItems + (i != orderItem.length - 1 ? ")," : ")")
         }
-        console.log("result:",orders)
-        const Data={
-            person:props.user,
-            orders:orders,
-            price:price + props.total
+        console.log("result:", orders)
+        const Data = {
+            person: props.user,
+            orders: orders,
+            price: price + props.total
         }
-        const token = 'bearer ' + document.cookie.split("=")[1];
-        axios.post('http://localhost:5000/orderList', Data,{
-            headers: { 'Authorization': token }
+        axios.post('http://localhost:5000/orderList', Data, {
+            headers: { 'Authorization': 'bearer ' + document.cookie.split("=")[1] }
         }, { withCredentials: true })
             .then(res => {
                 console.log(res.data)
             })
-        setTempPrice(price+props.total)
         setHistoryItems(orders)
-        props.addCard([],0);
+        setTempPrice(props.total+price)
+        props.addCard([], 0);
         setPrice(0)
-        
+
+
     }
-    
-   
+
+
     return (
         <Container >
 
@@ -113,13 +126,13 @@ function CardAndPayment(props) {
                                         <Typography variant='body1'>{data.item}</Typography>
                                     </Grid>
                                     <Grid item container sm={4} key={2}>
-                                        <Grid item  key={1}>    <AddIcon className={classes.hoverAdd} onClick={() => increaseItem(index, data.price)} />
+                                        <Grid item key={1}>    <AddIcon className={classes.hoverAdd} onClick={() => increaseItem(index, data.price)} />
                                             {/* <Button onClick={() => increaseItem(index, data.price)}><AddIcon /></Button> */}
                                         </Grid>
                                         <Grid item key={2}>
                                             <Typography variant='body1'>{data.numOfItems}</Typography>
                                         </Grid>
-                                        <Grid item  key={3}>
+                                        <Grid item key={3}>
                                             <RemoveIcon className={classes.hoverAdd} onClick={() => decreaseItem(index, data.price)} />
                                             {/* <Button onClick={() => decreaseItem(index, data.price)}><RemoveIcon /></Button> */}
                                         </Grid>
@@ -140,21 +153,21 @@ function CardAndPayment(props) {
                             <Grid item sm={4} key={2}><Typography variant='h6'>{price + props.total} $</Typography></Grid>
                         </Grid>
                     </Container>
-                    <hr style={{marginTop: '80px'}}></hr>
+                    <hr style={{ marginTop: '80px' }}></hr>
                     <CardPayment amount={price + props.total} items={orderItem}></CardPayment>
-                    <Button onClick={orderDone} variant="contained" style={{marginTop: '10px'}}>Cash ({price + props.total})$</Button>
+                    <Button onClick={orderDone} variant="contained" style={{ marginTop: '10px' }}>Cash ({price + props.total})$</Button>
                 </div>
 
 
             </div>
             <div>
-               <hr style={{marginTop: '80px'}}></hr>
-               <h1>Order history</h1>
-               <hr style={{marginTop: '-19px'}}></hr>
-               <div>
-                   <h3>{historyItems}</h3><br></br>
-                   <h2>Price:</h2><h3>{tempPrice}</h3>
-               </div>
+                <hr style={{ marginTop: '80px' }}></hr>
+                <h1>Order history</h1>
+                <hr style={{ marginTop: '-19px' }}></hr>
+                <div>
+                    <h3>{historyItems}</h3>
+                    <h2>Price:{tempPrice}</h2>
+                </div>
             </div>
 
         </Container>
@@ -165,7 +178,7 @@ function CardAndPayment(props) {
 const mapStateToProps = state => {
     // console.log("card and payment: ", state.card.total)
     return {
-        user:state.log.user,
+        user: state.log.user,
         cardItem: state.card.cardItem,
         total: state.card.total
     }
