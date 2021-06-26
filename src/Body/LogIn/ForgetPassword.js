@@ -15,7 +15,9 @@ const useStyles = makeStyles(() => ({
     },
     login: {
         fontSize: '20px',
-        padding: '10px 0px'
+        padding: '10px 0px',
+        color:'red',
+        fontSize:'20px'
     },
     genaralSpacing: {
         padding: '10px 0px 0px 0px'
@@ -24,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 var value = false
-function LogIn(props) {
+function ForgetPassword(props) {
 
     const classes = useStyles();
     const [ok, setOk] = useState('')
@@ -84,30 +86,17 @@ function LogIn(props) {
         <div style={{ padding: '5px', display: 'flex', justifyContent: "center",margin:'130px'}}>
             <div className={classes.root}>
                 <Grid item className={classes.login} >
-                    Login
+                    Forget Password
                 </Grid>
                 <Grid item className={classes.genaralSpacing}>
-                    Sign in to your account and start ordering from our delicious menu.
-                    Don't have any account? <Link href='http://localhost:3000/registration'>Register here</Link>
-                </Grid>
-
-                <Grid item className={classes.genaralSpacing}>
-                    <TextField id="id1" label="Email or Phone Number" style={{ inlineSize: '300px' }} value={email} onChange={(event) => setEmail(event.target.value)} />
-                </Grid>
-                <Grid item className={classes.genaralSpacing}>
-                    <TextField id="id2" label="Password" type='password' style={{ inlineSize: '300px' }} value={password} onChange={(event) => setPassword(event.target.value)} />
+                    <TextField id="id1" label="Enter the Email" style={{ inlineSize: '300px' }} value={email} onChange={(event) => setEmail(event.target.value)} />
                 </Grid>
                 <Grid item className={classes.genaralSpacing} style={{ padding: '25px 0px 0px 0px' }}>
                     <Button variant="contained" color="primary" style={{margin:'0px 15px 5px 0px'}} onClick={() => submitLogin()}>
-                        Login
-                    </Button>
-                    <Button variant="contained" color="primary" style={{margin:'0px 15px 5px 0px'}} onClick={() => logout()}>
-                        Logout
+                        Submit
                     </Button>
                 </Grid>
-                <Grid item className={classes.genaralSpacing}>
-                    Forget Password ?<Link href='http://localhost:3000/forgetPassword'>Click here</Link>
-                </Grid>
+                
             </div>
         </div>
     )
@@ -133,4 +122,4 @@ const mapDispatchToProps = (dispatch) =>{
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(LogIn)
+export default connect(mapStateToProps,mapDispatchToProps)(ForgetPassword)

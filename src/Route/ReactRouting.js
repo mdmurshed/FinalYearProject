@@ -10,6 +10,8 @@ import Reservation from '../Body/Reservation/Reservation'
 import Admin from '../Admin/Admin'
 import MenuAdd from '../Admin/MenuAdd'
 import Login from '../Admin/Login'
+import ForgetPassword from '../Body/LogIn/ForgetPassword'
+import Account from '../Body/Account/Account'
 export default class ReactRouting extends Component {
     render() {
         return (
@@ -20,6 +22,8 @@ export default class ReactRouting extends Component {
                     <Route path="/Registration"><Registration {...this.props.children}></Registration></Route>
                     <Route path="/Reservation"><Reservation {...this.props.children}></Reservation></Route>
                     <Route path="/Login"><LogIn {...this.props.children}></LogIn></Route>
+                    <Route path="/account"><Account {...this.props}></Account></Route>
+                    <Route path="/forgetPassword"><ForgetPassword></ForgetPassword></Route>
                     {/* <Route path="/admin/menuAdd"><MenuAdd></MenuAdd></Route> */}
                     <Route path="/admin/login"><Login></Login></Route>
                     <Route path="/admin"><Admin></Admin></Route>

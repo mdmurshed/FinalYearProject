@@ -87,7 +87,7 @@ function Contact() {
    return(
        <div className={classess.root}>
             <Grid item xs={12}>
-                <Paper className={classess.headingPaper}><Typography variant='h2'>Contruct Us</Typography></Paper>
+                <Paper className={classess.headingPaper}><Typography variant='h2'>Contact Us</Typography></Paper>
             </Grid>
             <Container>
             <Grid className={classess.root} container spacing={2}  justify="space-between">

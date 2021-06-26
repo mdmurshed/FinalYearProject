@@ -11,6 +11,7 @@ import Menu from '@material-ui/core/Menu';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import { withRouter } from 'react-router-dom';
 import {  Button, Grid, ListItem, useMediaQuery } from '@material-ui/core';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import {connect} from 'react-redux'
 import {logout} from '../Redux'
 import axios from 'axios'
@@ -139,6 +140,7 @@ const HeaderFile = props => {
                                     }
 
                                     <ListItem  style={{paddingLeft:'0px'}} key={11} onClick={() => logout()}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>{props.log?"Sign Out":"Sign In"}</Button></ListItem>
+                                    <ListItem  style={{paddingLeft:'0px',color:'blue'}} key={11} onClick={() => handleClose("/account")}>{props.log?<AccountCircle></AccountCircle>:""}</ListItem>
                                     {/* <ListItem key={12}><Button style={{ inlineSize: 'max-content'}} variant="contained" onClick={() => handleClose("/Login")}>Log Out</Button></ListItem> */}
                                 </Grid>
                             )

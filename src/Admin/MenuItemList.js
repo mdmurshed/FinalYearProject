@@ -88,7 +88,7 @@ function MenuItemList() {
                                         <TableCell >{row.discription}</TableCell>
                                         <TableCell >{row.price}</TableCell>
                                         <TableCell ><button onClick={(e) => startEditing(row._id)}><EditIcon></EditIcon></button></TableCell>
-                                        <TableCell ><button onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
+                                        <TableCell ><button style={{color:'red'}} onClick={() => deleteItem(row._id)}><DeleteIcon></DeleteIcon></button></TableCell>
                                     </TableRow>
                                 )) : <div>Loading...</div>
                             }

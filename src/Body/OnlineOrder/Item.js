@@ -103,7 +103,7 @@ function Item(props) {
                 <div className={classes.root} >
                     {
                         items ? items.map((item,index) => {
-                            return <Grid container spacing={2} key = {index} className = {classes.hoverAdd} >
+                            return <Grid container spacing={1} key = {index} className = {classes.hoverAdd} >
                                <Paper className={classes.root} key = {index}>
                                 <Grid  item container spacing={1} key={index}>
                                     <Grid item container sm={6} key={1}>

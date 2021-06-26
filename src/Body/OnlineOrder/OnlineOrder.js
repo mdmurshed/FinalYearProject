@@ -38,7 +38,7 @@ function OnlineOrder() {
                     <CardAndPayment></CardAndPayment>
                 </Grid>
             </Grid>
-        </Container>
+         </Container>
     )
 }
 
