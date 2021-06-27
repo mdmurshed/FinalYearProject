@@ -79,7 +79,7 @@ function MenuItemList() {
                         </TableHead>
                         <TableBody>
                             {
-                                items ? items.map((row) => (
+                                items?items.map((row) => (
                                     <TableRow key={row._id}>
                                         <TableCell component="th" scope="row">
                                             {row.item}

@@ -5,6 +5,8 @@ import MenuItems from './MenuItems'
 import UpdateItem from './UpdateItem'
 import OrderItems from './OrderItems'
 import OrderHistory from './OrderHistory'
+import Reservation from './Reservation'
+import ContactUs from './ContactUs'
 
 function TabPanel() {
     const [value,setValue] = useState(2)
@@ -20,6 +22,8 @@ function TabPanel() {
                     <Tab style={{fontWeight:"bold"}} label="Add Menu"/>
                     <Tab style={{fontWeight:"bold"}} label="Order Items"/>
                     <Tab style={{fontWeight:"bold"}} label="Order History"/>
+                    <Tab style={{fontWeight:"bold"}} label="Reservation"/>
+                    <Tab style={{fontWeight:"bold"}} label="Contact Us"/>
                 </Tabs>
             </AppBar>
             <TabPanelPage value = {value} index={0}>
@@ -34,6 +38,13 @@ function TabPanel() {
             <TabPanelPage value = {value} index={3}>
                 <OrderHistory></OrderHistory>
             </TabPanelPage>
+            <TabPanelPage value = {value} index={4}>
+                <Reservation></Reservation>
+            </TabPanelPage>
+            <TabPanelPage value = {value} index={5}>
+                <ContactUs></ContactUs>
+            </TabPanelPage>
+            
             
         </div>
     )
